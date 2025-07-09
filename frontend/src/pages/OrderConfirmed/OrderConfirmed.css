@@ -1,0 +1,36 @@
+.order-confirmed-container {
+  max-width: 700px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 40px;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.order-confirmed-container h1 {
+  color: #333663;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.order-confirmed-container p {
+  color: #343131;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.order-confirmed-container button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  background-color: #484b76;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.order-confirmed-container button:hover {
+  background-color: #658dc4;
+}

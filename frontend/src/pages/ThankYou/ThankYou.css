@@ -1,0 +1,49 @@
+.thank-you-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 30px;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.thank-you-container h1 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 45px;
+}
+
+.thank-you-container p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 22px;
+}
+
+.upi-qr {
+  width: 330px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+
+.optional-text {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.paid-button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #5c61ae;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.paid-button:hover {
+  background-color: #658dc4;
+}

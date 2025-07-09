@@ -1,0 +1,40 @@
+.list-table-format {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid #cacaca;
+  font-size: 20px;
+}
+
+.list-table-format.title {
+  background-color: #f9f9f9;
+  font-weight: 600;
+}
+
+.list-table-format img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.list-table-format .delete-button {
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .list-table-format {
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .list-table-format.title {
+    display: none;
+  }
+}

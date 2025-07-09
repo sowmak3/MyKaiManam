@@ -1,0 +1,57 @@
+.why-us {
+  text-align: center;
+  margin: 130px 0;
+  font-size: 30px;
+}
+
+.why-us h2 {
+  font-size: 70px;
+  color: #2f3e46;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.why-us h2::before,
+.why-us h2::after {
+  content: "";
+  display: inline-block;
+  width: 80px;
+  height: 2px;
+  background-color: #ccc;
+  vertical-align: middle;
+  margin: 0 20px;
+}
+
+.why-us-features {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 230px; /* Increased gap */
+  flex-wrap: wrap;
+
+}
+
+.why-us-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+}
+
+.why-us-item img {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+.why-us-item p {
+  font-size: 25px;
+  color: #333;
+  font-weight: 500;
+  text-wrap: wrap;
+  line-height: 1.3;
+}

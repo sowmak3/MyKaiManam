@@ -1,0 +1,38 @@
+.food-display {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.food-display-heading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.food-display h2 {
+  font-size: 70px;
+  color: #2f3e46;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.food-display h2::before,
+.food-display h2::after {
+  content: "";
+  display: inline-block;
+  width: 80px;
+  height: 2px;
+  background-color: #ccc;
+  margin: 0 20px;
+  vertical-align: middle;
+}
+
+.food-display-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 items in a row */
+  gap: 40px;
+  padding: 0 40px;
+  justify-items: center;
+}

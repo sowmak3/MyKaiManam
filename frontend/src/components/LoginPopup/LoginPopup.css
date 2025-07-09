@@ -1,0 +1,81 @@
+.login-popup {
+  position: fixed; /* use fixed instead of absolute */
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(1.5px); /* ⬅ adds blur effect */
+  background-color: rgba(0, 0, 0, 0.4); /* dark semi-transparent layer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.login-popup-container {
+  place-self: center;
+  width: min(400px, 90vw);  /* Increased from 330px */
+  background-color: white;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 40px 45px; /* more spacing inside */
+  border-radius: 10px;
+  font-size: 18px;
+  animation: fadeIn 0.5s;
+}
+
+
+.login-popup-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+.login-popup-title img {
+  width: 16px;
+  cursor: pointer;
+}
+
+.login-popup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-popup-inputs input {
+  outline: none;
+  border: 1px solid #c9c9c9;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.login-popup-container button {
+  border: none;
+  padding: 15px;
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(57, 68, 118);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.login-popup-condition {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  margin-top: -15px;
+}
+
+.login-popup-condition input {
+  margin-top: 5px;
+}
+
+.login-popup p span {
+  color: rgb(0, 41, 249);
+  font-weight: 500;
+  cursor: pointer;
+}
