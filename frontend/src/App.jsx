@@ -8,7 +8,7 @@ import Products from './pages/Products/Products';
 import AboutUs from './pages/AboutUs/AboutUs'; // ✅ newly added
 import Contact from './pages/Contact/Contact'; // ✅ newly added
 
-import Navbar from './components/NavBar/NavBar';
+import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import LoginPopup from './components/LoginPopup/LoginPopup';
 import ThankYou from "./pages/ThankYou/ThankYou";
