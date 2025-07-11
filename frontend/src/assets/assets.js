@@ -48,8 +48,8 @@ import food8 from './food8.jpg';
 import food9 from './food9.jpg';
 import food10 from './food10.jpg';
 import food11 from './food11.jpg';
-import food12 from './food12.jpg';
-import food13 from './food13.jpg';
+import food12_temp from './food12_temp.jpg';
+import food13_temp from './food13_temp.jpg';
 import food14 from './food14.jpg';
 import food15 from './food15.jpg';
 import food16 from './food16.jpg';
@@ -109,8 +109,8 @@ export const food_list = [
   // MIXES
   { _id: "10", name: "Tomato Thokku", image: food10, price: 400, category: "Mixes" },
   { _id: "11", name: "Kothamalli Thokku", image: food11, price: 370, category: "Mixes" },
-  { _id: "12", name: "Mango Thokku", image: food12, price: 370, category: "Mixes"  },
-  { _id: "13", name: "Small Onion Thokku", image: food13, price: 370, category: "Mixes"},
+  { _id: "12", name: "Mango Thokku", image: food12_temp, price: 370, category: "Mixes"  },
+  { _id: "13", name: "Small Onion Thokku", image: food13_temp, price: 370, category: "Mixes"},
   { _id: "14", name: "Pulikachal", image: food14, price: 450, category: "Mixes" },
 
   // PICKLES
