@@ -1,43 +1,52 @@
 import foodModel from "../models/foodModel.js";
-import fs from 'fs'
+import fs from 'fs';
+import cloudinary from '../config/cloudinary.js';
+import multer from 'multer';
 
 export const addFood = async (req, res) => {
-  const image_filename = req.file?.filename;
-
-  const food = new foodModel({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    image: image_filename
-  });
-
   try {
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "MyKaiManam"  // optional folder name in your Cloudinary dashboard
+    });
+
+    const food = new foodModel({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      image: result.secure_url // Save the Cloudinary URL
+    });
+
     await food.save();
+
+    // Optional: Delete local file after upload to keep server clean
+    fs.unlink(req.file.path, (err) => {
+      if (err) console.log("⚠️ Local file delete error:", err);
+      else console.log("🗑️ Local file deleted after Cloudinary upload");
+    });
+
     res.json({ success: true, message: "Food Added" });
+
+  } catch (error) {
+    console.log("❌ Cloudinary Upload Error:", error);
+    res.json({ success: false, message: "Error adding food" });
+  }
+};
+
+const listFood = async (req, res) => {
+  try {
+    const foods = await foodModel.find({});
+    res.json({ success: true, data: foods });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error" });
   }
 };
 
-
-
-//all food list
-const listFood = async (req, res) => {
-    try {
-        const foods = await foodModel.find({});
-        res.json({success:true,data:foods})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false, message:"Error"})
-    }
-}
-
-//remove food item
 const removeFood = async (req, res) => {
   try {
-    console.log("📥 Full request body:", req.body); // Show everything sent
+    console.log("📥 Full request body:", req.body);
 
     const id = req.body.id;
     if (!id) {
@@ -53,11 +62,12 @@ const removeFood = async (req, res) => {
       return res.json({ success: false, message: "Food not found" });
     }
 
-    if (food.image) {
-      const imagePath = `uploads/${food.image}`;
+    // Optional: Remove local file if still exists
+    if (food.image && food.image.startsWith("uploads/")) {
+      const imagePath = food.image;
       fs.unlink(imagePath, (err) => {
         if (err) console.log("⚠️ Image delete error:", err);
-        else console.log("🗑️ Image deleted:", imagePath);
+        else console.log("🗑️ Local image deleted:", imagePath);
       });
     }
 
@@ -72,9 +82,4 @@ const removeFood = async (req, res) => {
   }
 };
 
-
-
-
-
-
-export { listFood, removeFood };
+export { addFood, listFood, removeFood };
