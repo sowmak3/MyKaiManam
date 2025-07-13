@@ -5,14 +5,14 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
-  const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL?.replace(/\/$/, ""); // Remove any trailing slash if present
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
   const addToCart = async (itemId) => {
     if (token) {
       try {
-        await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
+        await axios.post(`${url}/api/cart/add`, { itemId }, { headers: { token } });
         await fetchCartData();
       } catch (error) {
         console.log("Add to cart error:", error.response?.data?.message || error.message);
@@ -26,7 +26,7 @@ const StoreContextProvider = ({ children }) => {
   const removeFromCart = async (itemId) => {
     if (token) {
       try {
-        await axios.post(url + "/api/cart/remove", { itemId }, { headers: { token } });
+        await axios.post(`${url}/api/cart/remove`, { itemId }, { headers: { token } });
         await fetchCartData();
       } catch (error) {
         console.log("Remove from cart error:", error.response?.data?.message || error.message);
@@ -51,15 +51,23 @@ const StoreContextProvider = ({ children }) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(url + "/api/food/list");
-    setFoodList(response.data.data);
+    try {
+      const response = await axios.get(`${url}/api/food/list`);
+      setFoodList(response.data.data);
+    } catch (error) {
+      console.log("Fetch food list error:", error.response?.data?.message || error.message);
+    }
   };
 
   const fetchCartData = async () => {
     if (token) {
-      const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
-      if (response.data.success) {
-        setCartItems(response.data.cartData || {});
+      try {
+        const response = await axios.post(`${url}/api/cart/get`, {}, { headers: { token } });
+        if (response.data.success) {
+          setCartItems(response.data.cartData || {});
+        }
+      } catch (error) {
+        console.log("Fetch cart data error:", error.response?.data?.message || error.message);
       }
     }
   };
