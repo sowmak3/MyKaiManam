@@ -7,8 +7,6 @@ import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 
 const App = () => {
-
-  const url = import.meta.env.VITE_SERVER_URL;
   return (
     <div>
       <Navbar />
@@ -16,9 +14,9 @@ const App = () => {
       <div className="app-content">
         <Sidebar />
         <Routes>
-          <Route path="/add" element={<Add url={url}/>}/>
-          <Route path="/list" element={<List url={url}/>}/>
-          <Route path="/orders" element={<Orders url={url}/>}/>
+          <Route path="/add" element={<Add />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>
     </div>

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './List.css';
 import axios from "axios";
 
-const List = ({url}) => {
-  
+const List = () => {
+  // ✅ Use env var directly here (no props needed)
+  const url = import.meta.env.VITE_SERVER_URL;
+
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -26,17 +28,16 @@ const List = ({url}) => {
       const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
       await fetchList();
 
-    if (response.data.success) {
-      alert(response.data.message);  // Show success message
-    } else {
-      alert("Error removing food."); // Show fallback error
+      if (response.data.success) {
+        alert(response.data.message);
+      } else {
+        alert("Error removing food.");
+      }
+    } catch (error) {
+      alert("Server error while removing food.");
+      console.error("Remove food failed:", error);
     }
-  } catch (error) {
-    alert("Server error while removing food."); // Show network error
-    console.error("Remove food failed:", error);
-  }
-};
-
+  };
 
   useEffect(() => {
     fetchList();
@@ -53,19 +54,16 @@ const List = ({url}) => {
           <p>Price</p>
           <b>Action</b>
         </div>
-        {list.map((item,index)=>{
-          return (
-            <div key ={index} className='list-table-format'> 
-              <img src={`${url}/images/`+item.image} alt=""/>
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>₹{item.price}</p>
-              <p onClick ={()=>removeFood(item._id)}className='cursor'>X</p>
-            </div>
-          )
-        })}
+        {list.map((item, index) => (
+          <div key={index} className='list-table-format'> 
+            <img src={item.image} alt=""/>
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>₹{item.price}</p>
+            <p onClick={() => removeFood(item._id)} className='cursor'>X</p>
+          </div>
+        ))}
       </div>
-      {/* You can render your food items here using the list state */}
     </div>
   );
 };
