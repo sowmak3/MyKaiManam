@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import FoodItem from '../../components/FoodItem/FoodItem';
 
 const Products = () => {
-  const { food_list, url } = useContext(StoreContext); // ✅ Include url from context
+  const { food_list } = useContext(StoreContext);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = ['All', 'Podis', 'Mixes', 'Pickles'];
@@ -39,7 +39,7 @@ const Products = () => {
             name={item.name}
             price={item.price}
             description={item.description}
-            image={`${url}/images/${item.image}`} // ✅ Correct image path
+            image={item.image} // ✅ Use Cloudinary URL directly
           />
         ))}
       </div>

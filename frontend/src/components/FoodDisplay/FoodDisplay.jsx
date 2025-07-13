@@ -4,9 +4,9 @@ import { StoreContext } from '../../context/StoreContext';
 import FoodItem from '../FoodItem/FoodItem';
 
 const FoodDisplay = () => {
-  const { food_list, url } = useContext(StoreContext);
+  const { food_list } = useContext(StoreContext);
 
-  // Define the specific IDs for best sellers (replace these with correct ObjectIDs from your DB)
+  // Replace these with actual ObjectIDs of best sellers from your DB
   const bestSellerIds = [
     "685fd4b88e3daeacd657bb03",
     "685fcd9f8e3daeacd657bacb",
@@ -15,11 +15,7 @@ const FoodDisplay = () => {
     "685fd2b28e3daeacd657baec"
   ];
 
-  // Filter the food list to include only the best sellers
   const bestSellers = food_list.filter(item => bestSellerIds.includes(item._id));
-
-  console.log("food_list from context:", food_list);
-  console.log("Filtered best sellers:", bestSellers);
 
   return (
     <div className='food-display' id='food-display'>
@@ -27,20 +23,16 @@ const FoodDisplay = () => {
         <h2>Our Signature Favourites</h2>
       </div>
       <div className='food-display-list'>
-        {bestSellers.map((item, index) => {
-          console.log("Signature item image value:", item.image);
-
-          return (
-            <FoodItem
-              key={index}
-              id={item._id}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              image={`${url}/images/${item.image}`}
-            />
-          );
-        })}
+        {bestSellers.map((item, index) => (
+          <FoodItem
+            key={index}
+            id={item._id}
+            name={item.name}
+            description={item.description}
+            price={item.price}
+            image={item.image} // ✅ Use Cloudinary URL directly
+          />
+        ))}
       </div>
     </div>
   );
