@@ -40,6 +40,7 @@ const PlaceOrder = () => {
           id,
           name: product ? product.name : "Unknown",
           quantity,
+          image: product ? product.image : "", // ✅ Added image field
         };
       });
 
