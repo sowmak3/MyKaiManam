@@ -16,7 +16,8 @@ const addFood = async (req, res) => {
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: result.secure_url // save Cloudinary URL
+      image: result.secure_url, // save Cloudinary URL
+      bestSeller: req.body.bestSeller === "true", // ✅ convert string to boolean
     });
 
     await food.save();
