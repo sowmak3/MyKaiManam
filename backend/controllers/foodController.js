@@ -20,6 +20,9 @@ const addFood = async (req, res) => {
       bestSeller: req.body.bestSeller === "true", // ✅ convert string to boolean
     });
 
+    // ✅ Add log to verify object before saving
+    console.log("🟢 Creating food with data:", food);
+
     await food.save();
 
     // Delete local file after Cloudinary upload
