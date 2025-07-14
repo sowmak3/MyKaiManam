@@ -5,12 +5,12 @@ import axios from "axios";
 
 const Add = ({ url }) => {
   const [image, setImage] = useState(null);
-  const [formKey, setFormKey] = useState(0); // helps reset <input type="file">
+  const [formKey, setFormKey] = useState(0);
   const [data, setData] = useState({
     name: "",
     price: "",
     category: "Podis",
-    bestSeller: false, // ✅ set default to false
+    bestSeller: false,
   });
 
   const onChangeHandler = (event) => {
@@ -30,17 +30,17 @@ const Add = ({ url }) => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    formData.append("bestSeller", data.bestSeller); // ✅ always append
+    formData.append("bestSeller", data.bestSeller ? "true" : "false"); // ✅ force string value
 
     try {
       const response = await axios.post(`${url}/api/food/add`, formData);
       if (response.data.success) {
         alert("Food added successfully!");
 
-        // ✅ Reset fields
+        // ✅ Reset form
         setData({ name: "", price: "", category: "Podis", bestSeller: false });
         setImage(null);
-        setFormKey(prev => prev + 1); // reset file input
+        setFormKey(prev => prev + 1);
       } else {
         alert("Error: " + response.data.message);
       }
