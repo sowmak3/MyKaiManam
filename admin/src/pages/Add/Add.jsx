@@ -10,7 +10,7 @@ const Add = ({ url }) => {
     name: "",
     price: "",
     category: "Podis",
-    bestSeller: false,
+    bestSeller: false, // ✅ set default to false
   });
 
   const onChangeHandler = (event) => {
@@ -30,17 +30,17 @@ const Add = ({ url }) => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    formData.append("bestSeller", data.bestSeller);
+    formData.append("bestSeller", data.bestSeller); // ✅ always append
 
     try {
       const response = await axios.post(`${url}/api/food/add`, formData);
       if (response.data.success) {
         alert("Food added successfully!");
 
-        // ✅ Reset all fields
+        // ✅ Reset fields
         setData({ name: "", price: "", category: "Podis", bestSeller: false });
         setImage(null);
-        setFormKey(prev => prev + 1);
+        setFormKey(prev => prev + 1); // reset file input
       } else {
         alert("Error: " + response.data.message);
       }
