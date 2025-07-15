@@ -9,8 +9,9 @@ const Navbar = ({ setShowLogin }) => {
   const currentPath = location.pathname;
 
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-
   const navigate = useNavigate();
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -18,15 +19,13 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
 
-  console.log(assets);
-
   return (
     <div className="navbar">
       <Link to="/">
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
-      <ul className="navbar-menu">
+      <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
         <li className={currentPath === '/' ? 'active' : ''}>
           <Link to="/">Home</Link>
         </li>
@@ -42,7 +41,6 @@ const Navbar = ({ setShowLogin }) => {
       </ul>
 
       <div className="navbar-right">
-        {/* <img src={assets.newsearchicon} alt="search" /> */}
         <div className="navbar-search-icon">
           <Link to='/cart'><img src={assets.newcarticon} alt="cart" /></Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
@@ -63,6 +61,7 @@ const Navbar = ({ setShowLogin }) => {
             </ul>
           </div>
         )}
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       </div>
     </div>
   );

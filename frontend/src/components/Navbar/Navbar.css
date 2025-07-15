@@ -34,7 +34,7 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .navbar button {
@@ -42,7 +42,7 @@
   font-size: 26px;
   color: black;
   border: 1px solid darkolivegreen;
-  padding: 15px 40px;
+  padding: 10px 25px;
   border-radius: 50px;
   cursor: pointer;
   transition: 0.3s;
@@ -72,7 +72,6 @@
   cursor: pointer;
 }
 
-/* Profile Dropdown */
 .navbar-profile {
   position: relative;
 }
@@ -115,6 +114,14 @@
 
 /* ---------------------- Responsive styles ----------------------- */
 
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 @media (max-width: 1050px) {
   .navbar .logo {
     width: 140px;
@@ -125,49 +132,37 @@
     font-size: 17px;
   }
 
-  .navbar-right {
-    gap: 30px;
-  }
-
   .navbar-right img {
     width: 28px;
     height: 28px;
   }
 
   .navbar button {
-    padding: 8px 25px;
+    padding: 8px 20px;
     font-size: 18px;
-  }
-}
-
-@media (max-width: 900px) {
-  .navbar .logo {
-    width: 120px;
-  }
-
-  .navbar-menu {
-    gap: 15px;
-    font-size: 16px;
-  }
-
-  .navbar-right {
-    gap: 20px;
-  }
-
-  .navbar-right img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .navbar button {
-    padding: 7px 20px;
-    font-size: 16px;
   }
 }
 
 @media (max-width: 750px) {
   .navbar-menu {
     display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px 0;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
   }
 
   .navbar .logo {
@@ -175,7 +170,7 @@
   }
 
   .navbar button {
-    padding: 6px 18px;
+    padding: 6px 15px;
     font-size: 15px;
   }
 }
