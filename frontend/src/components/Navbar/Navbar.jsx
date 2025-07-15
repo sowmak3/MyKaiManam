@@ -25,18 +25,18 @@ const Navbar = ({ setShowLogin }) => {
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
-      <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
+      <ul className={`navbar-menu ${menuOpen ? "open" : ""}`}>
         <li className={currentPath === '/' ? 'active' : ''}>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
         </li>
         <li className={currentPath === '/products' ? 'active' : ''}>
-          <Link to="/products">Products</Link>
+          <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
         </li>
         <li className={currentPath === '/about' ? 'active' : ''}>
-          <Link to="/about">About us</Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)}>About us</Link>
         </li>
         <li className={currentPath === '/contact' ? 'active' : ''}>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
         </li>
       </ul>
 
@@ -45,6 +45,7 @@ const Navbar = ({ setShowLogin }) => {
           <Link to='/cart'><img src={assets.newcarticon} alt="cart" /></Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
+
         {!token ? (
           <button onClick={() => setShowLogin(true)}>Sign in</button>
         ) : (
@@ -61,6 +62,8 @@ const Navbar = ({ setShowLogin }) => {
             </ul>
           </div>
         )}
+
+        {/* 🟢 Hamburger icon now inside navbar-right */}
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       </div>
     </div>

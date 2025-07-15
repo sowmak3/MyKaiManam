@@ -113,48 +113,31 @@
 }
 
 /* ---------------------- Responsive styles ----------------------- */
+/* Rest of your CSS remains as is */
 
 .hamburger {
-  display: none;
-  font-size: 28px;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 1px solid darkolivegreen;
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-size: 22px;
   cursor: pointer;
-}
-
-@media (max-width: 1050px) {
-  .navbar .logo {
-    width: 140px;
-  }
-
-  .navbar-menu {
-    gap: 20px;
-    font-size: 17px;
-  }
-
-  .navbar-right img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .navbar button {
-    padding: 8px 20px;
-    font-size: 18px;
-  }
+  display: none; /* by default hidden */
 }
 
 @media (max-width: 750px) {
   .navbar-menu {
     display: none;
-    flex-direction: column;
     position: absolute;
     top: 80px;
-    left: 0;
-    width: 100%;
+    right: 20px;
     background-color: white;
-    padding: 10px 0;
+    flex-direction: column;
     gap: 15px;
-    text-align: center;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    z-index: 99;
   }
 
   .navbar-menu.open {
@@ -165,12 +148,7 @@
     display: block;
   }
 
-  .navbar .logo {
-    width: 100px;
-  }
-
-  .navbar button {
-    padding: 6px 15px;
-    font-size: 15px;
+  .navbar-right {
+    gap: 10px;
   }
 }
