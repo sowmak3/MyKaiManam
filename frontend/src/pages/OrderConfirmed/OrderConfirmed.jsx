@@ -4,15 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 
 const OrderConfirmed = () => {
-  const { setCartItems } = useContext(StoreContext);
+  const { clearCart } = useContext(StoreContext);
   const navigate = useNavigate();
 
-  const handleHome = () => {
-    // ✅ Clear cart state
-    setCartItems({});
-    // ✅ Clear local storage cart
-    localStorage.removeItem("cartItems");
-    // Navigate home
+  const handleHome = async () => {
+    await clearCart({ syncServer: false }); // already cleared earlier
     navigate("/");
   };
 

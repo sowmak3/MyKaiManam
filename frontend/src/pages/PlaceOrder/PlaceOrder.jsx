@@ -4,33 +4,23 @@ import { StoreContext } from '../../context/StoreContext';
 import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
-  const { getTotalCartAmount, cartItems, url, token, setCartItems, food_list } = useContext(StoreContext);
+  const { getTotalCartAmount, cartItems, url, token, food_list, clearCart } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [country, setCountry] = useState("");
-  const [phone, setPhone] = useState("");
+  const [lastName, setLastName]   = useState("");
+  const [email, setEmail]         = useState("");
+  const [street, setStreet]       = useState("");
+  const [city, setCity]           = useState("");
+  const [state, setState]         = useState("");
+  const [zip, setZip]             = useState("");
+  const [country, setCountry]     = useState("");
+  const [phone, setPhone]         = useState("");
 
   const handleOrder = async (e) => {
     e.preventDefault();
 
-    const address = {
-      firstName,
-      lastName,
-      email,
-      street,
-      city,
-      state,
-      zip,
-      country,
-      phone,
-    };
+    const address = { firstName, lastName, email, street, city, state, zip, country, phone };
 
     const orderedItems = Object.entries(cartItems)
       .filter(([id, quantity]) => quantity > 0)
@@ -40,7 +30,7 @@ const PlaceOrder = () => {
           id,
           name: product ? product.name : "Unknown",
           quantity,
-          image: product ? product.image : "", // ✅ Added image field
+          image: product ? product.image : "",
         };
       });
 
@@ -52,10 +42,7 @@ const PlaceOrder = () => {
     try {
       await fetch(`${url}/api/order/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token,
-        },
+        headers: { "Content-Type": "application/json", token },
         body: JSON.stringify({
           items: orderedItems,
           amount: getTotalCartAmount(),
@@ -63,13 +50,12 @@ const PlaceOrder = () => {
         }),
       });
 
-      // ✅ Save final amount
+      // Save amount for ThankYou
       const finalAmount = getTotalCartAmount();
       localStorage.setItem("finalAmount", finalAmount);
 
-      // ✅ Clear cart in state and local storage
-      setCartItems({});
-      localStorage.removeItem("cartItems");
+      // ✅ Clear cart state + server (prevents repopulation on next fetch)
+      await clearCart({ syncServer: true });
 
       navigate("/thank-you");
     } catch (error) {
@@ -79,11 +65,8 @@ const PlaceOrder = () => {
   };
 
   useEffect(() => {
-    if (!token) {
-      navigate('/cart');
-    } else if (getTotalCartAmount() === 0) {
-      navigate('/cart');
-    }
+    if (!token || getTotalCartAmount() === 0) navigate('/cart');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (
@@ -93,15 +76,15 @@ const PlaceOrder = () => {
 
         <div className="multi-fields">
           <input type="text" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-          <input type="text" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+          <input type="text" placeholder="Last name"  value={lastName}  onChange={(e) => setLastName(e.target.value)}  required />
         </div>
 
         <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="text" placeholder="Flat/House no, Building name, Street" value={street} onChange={(e) => setStreet(e.target.value)} required />
 
         <div className="multi-fields">
-          <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} required />
-          <input type="text" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} required />
+          <input type="text" placeholder="City"   value={city}   onChange={(e) => setCity(e.target.value)}   required />
+          <input type="text" placeholder="State"  value={state}  onChange={(e) => setState(e.target.value)}  required />
         </div>
 
         <div className="multi-fields">
