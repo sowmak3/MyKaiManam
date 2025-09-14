@@ -1,11 +1,16 @@
 .header{
     height: 34vw;
-    margin: 30px auto;
+    min-height: 300px;
+    max-height: 500px;
+    margin: 30px 40px;
     background: url('/header_img.jpg') no-repeat;
     background-size: cover;
+    background-position: center;
     position: relative;
     border-radius: 30px;
     overflow: hidden;
+    width: calc(100% - 80px);
+    box-sizing: border-box;
 }
 
 .header::before {
@@ -32,6 +37,7 @@
     color: white;
     z-index: 2;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    padding: 20px;
 }
 
 .header-contents h2{
@@ -42,38 +48,108 @@
 
 .header-contents p{
     color: white;
-    font-size: 1.1vw;
+    font-size: max(1.1vw, 14px);
     font-weight: 400;
+    line-height: 1.4;
 }
 
 .header-contents button{
     border: none;
     color: #211f1f;
     font-weight: 500;
-    padding: 1vw 2.3vw;
+    padding: max(1vw, 12px) max(2.3vw, 20px);
     background-color: white;
-    font-size: max(1vw,13px);
+    font-size: max(1vw, 13px);
     border-radius: 50px;
     cursor: pointer;
-
+    transition: all 0.3s ease;
 }
 
-@media (max-width:1050px) {
-    .header-contents{
-        max-width: 45%;
+.header-contents button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* Tablet responsive adjustments */
+@media (max-width: 1024px) {
+    .header {
+        height: 40vw;
+        min-height: 280px;
+        margin: 20px 30px;
+        width: calc(100% - 60px);
+    }
+    
+    .header-contents {
+        max-width: 50%;
+        left: 4vw;
+        bottom: 8%;
+        gap: 1.2vw;
+    }
+    
+    .header-contents h2 {
+        font-size: max(3vw, 20px);
+    }
+    
+    .header-contents p {
+        font-size: max(1vw, 13px);
     }
 }
 
-@media (max-width:750px) {
-    .header-contents{
-        max-width: 65%;
+/* Mobile responsive adjustments */
+@media (max-width: 750px) {
+    .header {
+        height: 50vw;
+        min-height: 250px;
+        margin: 15px 20px;
+        width: calc(100% - 40px);
+        border-radius: 20px;
+    }
+    
+    .header-contents {
+        max-width: 70%;
+        left: 3vw;
+        bottom: 6%;
+        gap: 1vw;
+        padding: 15px;
+    }
+    
+    .header-contents h2 {
+        font-size: max(2.5vw, 18px);
     }
 
-    .header-contents p{
+    .header-contents p {
         display: none;
     }
 
-    .header-contents button{
-        padding: 2vw;
+    .header-contents button {
+        padding: max(1.5vw, 10px) max(2vw, 16px);
+        font-size: max(0.9vw, 12px);
+    }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+    .header {
+        height: 60vw;
+        min-height: 200px;
+        margin: 10px 15px;
+        width: calc(100% - 30px);
+        border-radius: 15px;
+    }
+    
+    .header-contents {
+        max-width: 80%;
+        left: 2vw;
+        bottom: 5%;
+        padding: 10px;
+    }
+    
+    .header-contents h2 {
+        font-size: max(2vw, 16px);
+    }
+    
+    .header-contents button {
+        padding: max(1.2vw, 8px) max(1.5vw, 12px);
+        font-size: max(0.8vw, 11px);
     }
 }

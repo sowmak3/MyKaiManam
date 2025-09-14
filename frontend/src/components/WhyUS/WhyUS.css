@@ -2,6 +2,31 @@
   text-align: center;
   margin: 130px 0;
   font-size: 30px;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+/* Responsive why-us margins */
+@media (max-width: 1024px) {
+  .why-us {
+    margin: 100px 0;
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us {
+    margin: 80px 0;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us {
+    margin: 60px 0;
+    padding: 0 15px;
+  }
 }
 
 .why-us h2 {
@@ -11,6 +36,28 @@
   position: relative;
   display: inline-block;
   margin-bottom: 40px;
+}
+
+/* Responsive why-us heading */
+@media (max-width: 1024px) {
+  .why-us h2 {
+    font-size: 60px;
+    margin-bottom: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us h2 {
+    font-size: 50px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us h2 {
+    font-size: 40px;
+    margin-bottom: 25px;
+  }
 }
 
 .why-us h2::before,
@@ -24,13 +71,68 @@
   margin: 0 20px;
 }
 
+/* Responsive decorative lines */
+@media (max-width: 1024px) {
+  .why-us h2::before,
+  .why-us h2::after {
+    width: 60px;
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us h2::before,
+  .why-us h2::after {
+    width: 50px;
+    margin: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us h2::before,
+  .why-us h2::after {
+    width: 30px;
+    margin: 0 8px;
+  }
+}
+
 .why-us-features {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 230px; /* Increased gap */
   flex-wrap: wrap;
+}
 
+/* Responsive features layout */
+@media (max-width: 1200px) {
+  .why-us-features {
+    gap: 150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .why-us-features {
+    gap: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us-features {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .why-us-features {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us-features {
+    gap: 30px;
+  }
 }
 
 .why-us-item {
@@ -38,6 +140,25 @@
   flex-direction: column;
   align-items: center;
   width: 160px;
+}
+
+/* Responsive why-us items */
+@media (max-width: 1024px) {
+  .why-us-item {
+    width: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us-item {
+    width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us-item {
+    width: 100px;
+  }
 }
 
 .why-us-item img {
@@ -48,10 +169,57 @@
   margin-bottom: 12px;
 }
 
+/* Responsive why-us images */
+@media (max-width: 1024px) {
+  .why-us-item img {
+    width: 150px;
+    height: 150px;
+    margin-top: 35px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us-item img {
+    width: 130px;
+    height: 130px;
+    margin-top: 30px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us-item img {
+    width: 100px;
+    height: 100px;
+    margin-top: 25px;
+    margin-bottom: 6px;
+  }
+}
+
 .why-us-item p {
   font-size: 25px;
   color: #333;
   font-weight: 500;
   text-wrap: wrap;
   line-height: 1.3;
+}
+
+/* Responsive why-us text */
+@media (max-width: 1024px) {
+  .why-us-item p {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us-item p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us-item p {
+    font-size: 18px;
+  }
 }

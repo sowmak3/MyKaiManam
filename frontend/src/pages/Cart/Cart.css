@@ -1,9 +1,31 @@
 .cart {
   width: 100%;
   margin: 80px 0;
-  padding: 0 60px;
+  padding: 0 40px;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive cart padding */
+@media (max-width: 1024px) {
+  .cart {
+    padding: 0 30px;
+    margin: 60px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart {
+    padding: 0 20px;
+    margin: 40px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart {
+    padding: 0 15px;
+    margin: 30px 0;
+  }
 }
 
 .cart-main {
@@ -18,6 +40,19 @@
   min-width: 600px;
 }
 
+/* Responsive cart items */
+@media (max-width: 1024px) {
+  .cart-items {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-items {
+    min-width: 100%;
+  }
+}
+
 .cart-items-title {
   display: grid;
   grid-template-columns: 80px 2fr 1fr 1fr 1fr 40px;
@@ -29,6 +64,28 @@
   border-bottom: 1px solid #e2e2e2;
 }
 
+/* Responsive cart title */
+@media (max-width: 1024px) {
+  .cart-items-title {
+    font-size: 22px;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-items-title {
+    font-size: 18px;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-items-title {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+}
+
 .cart-items-item {
   display: grid;
   grid-template-columns: 80px 2fr 1fr 1fr 1fr 40px;
@@ -38,11 +95,48 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+/* Responsive cart items */
+@media (max-width: 1024px) {
+  .cart-items-item {
+    font-size: 20px;
+    padding: 14px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-items-item {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-items-item {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}
+
 .cart-items-item img {
   width: 55px;
   height: 55px;
   object-fit: cover;
   border-radius: 5px;
+}
+
+/* Responsive cart item images */
+@media (max-width: 768px) {
+  .cart-items-item img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-items-item img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 .cross {
@@ -65,12 +159,51 @@
   background-color: #fafafa;
 }
 
+/* Responsive cart total */
+@media (max-width: 1024px) {
+  .cart-total {
+    flex: 0 0 350px;
+    max-width: 350px;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-total {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+
 .cart-total h2 {
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 20px;
   text-align: center;
   color: #333;
+}
+
+/* Responsive cart total heading */
+@media (max-width: 1024px) {
+  .cart-total h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-total h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-total h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
 }
 
 .cart-total-details {
@@ -106,10 +239,12 @@
   background-color: #a1a1be;
 }
 
+/* Enhanced mobile responsive layout */
 @media (max-width: 900px) {
   .cart-main {
     flex-direction: column;
     align-items: center;
+    gap: 30px;
   }
 
   .cart-items {
@@ -118,8 +253,8 @@
 
   .cart-items-title,
   .cart-items-item {
-    grid-template-columns: repeat(2, 1fr);
-    font-size: 14px;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 30px;
+    font-size: 16px;
   }
 
   .cart-items-item img {
@@ -134,5 +269,46 @@
   .delivery-note {
     font-size: 14px;
     margin-top: 10px;
+  }
+}
+
+/* Small mobile layout */
+@media (max-width: 600px) {
+  .cart-items-title,
+  .cart-items-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .cart-items-title {
+    display: none; /* Hide headers on very small screens */
+  }
+  
+  .cart-items-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .cart-items-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .cart-items-item p {
+    margin: 5px 0;
+  }
+  
+  .cross {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
   }
 }

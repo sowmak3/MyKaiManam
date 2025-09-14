@@ -1,6 +1,7 @@
 import React from "react";
 import "./AboutUs.css";
 import logo from "../../assets/logo.png"; // ✅ Using correct logo path
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
@@ -47,9 +48,9 @@ const AboutUs = () => {
 
             {/* CTA Row — Only Contact Us */}
             <div className="mk-ctaRow">
-              <a href="mailto:mykaimanam@gmail.com" className="mk-btn">
+              <Link to="/contact" className="mk-btn">
                 Contact Us →
-              </a>
+              </Link>
             </div>
 
             <div className="mk-divider" />

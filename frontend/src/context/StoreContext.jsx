@@ -8,10 +8,16 @@ const StoreContextProvider = ({ children }) => {
   const url = import.meta.env.VITE_SERVER_URL?.replace(/\/$/, "");
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const addToCart = async (itemId) => {
-    if (!token) return alert("Please log in to add items to cart.");
+    if (!token) {
+      setShowLoginPopup(true);
+      return;
+    }
     try {
+      // Clear the cart cleared flag when adding new items
+      localStorage.removeItem("cartCleared");
       await axios.post(`${url}/api/cart/add`, { itemId }, { headers: { token } });
       await fetchCartData();
     } catch (error) {
@@ -53,6 +59,11 @@ const StoreContextProvider = ({ children }) => {
 
   const fetchCartData = async () => {
     if (!token) return;
+    // Don't fetch if cart was recently cleared
+    if (localStorage.getItem("cartCleared") === "true") {
+      localStorage.removeItem("cartCleared");
+      return;
+    }
     try {
       const response = await axios.post(`${url}/api/cart/get`, {}, { headers: { token } });
       if (response.data.success) {
@@ -74,6 +85,8 @@ const StoreContextProvider = ({ children }) => {
           console.warn("Server clear failed:", resp.data);
         }
       }
+      // Prevent refetching cart data after clearing
+      localStorage.setItem("cartCleared", "true");
     } catch (error) {
       console.log("Clear cart error:", error.response?.data?.message || error.message);
     }
@@ -102,6 +115,8 @@ const StoreContextProvider = ({ children }) => {
     token,
     setToken,
     clearCart, // 👈 expose
+    showLoginPopup,
+    setShowLoginPopup,
   };
 
   return <StoreContext.Provider value={contextValue}>{children}</StoreContext.Provider>;
