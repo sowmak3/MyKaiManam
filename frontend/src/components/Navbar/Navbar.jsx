@@ -4,20 +4,25 @@ import { assets } from '../../assets/assets';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 
-const Navbar = ({ setShowLogin }) => {
+const Navbar = () => {
   const location = useLocation();
-  const currentPath = location.pathname;
-
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
-
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const {
+    getTotalCartItems,
+    token,
+    setToken,
+    setShowLoginPopup,   // ✅ use context, not a prop
+  } = useContext(StoreContext);
+
   const logout = () => {
-    localStorage.removeItem("token");
-    setToken("");
-    navigate("/");
+    localStorage.removeItem('token');
+    setToken('');
+    navigate('/');
   };
+
+  const currentPath = location.pathname;
 
   return (
     <div className="navbar">
@@ -25,7 +30,7 @@ const Navbar = ({ setShowLogin }) => {
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
-      <ul className={`navbar-menu ${menuOpen ? "open" : ""}`}>
+      <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
         <li className={currentPath === '/' ? 'active' : ''}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
         </li>
@@ -42,15 +47,15 @@ const Navbar = ({ setShowLogin }) => {
 
       <div className="navbar-right">
         <div className="navbar-search-icon">
-          <Link to='/cart'><img src={assets.newcarticon} alt="cart" /></Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          <Link to="/cart"><img src={assets.newcarticon} alt="cart" /></Link>
+          {getTotalCartItems() > 0 && <div className="dot" />}
         </div>
 
         {!token ? (
-          <button onClick={() => setShowLogin(true)}>Sign in</button>
+          <button onClick={() => setShowLoginPopup(true)}>Sign in</button>
         ) : (
-          <div className='navbar-profile'>
-            <img src={assets.newprofileicon} alt="" />
+          <div className="navbar-profile">
+            <img src={assets.newprofileicon} alt="profile" />
             <ul className="nav-profile-dropdown">
               <li onClick={() => navigate('/myorders')}>
                 <img src={assets.newbagicon} alt="" /><p>Orders</p>
@@ -63,7 +68,6 @@ const Navbar = ({ setShowLogin }) => {
           </div>
         )}
 
-        {/* 🟢 Hamburger icon now inside navbar-right */}
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
       </div>
     </div>

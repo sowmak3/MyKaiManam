@@ -40,7 +40,7 @@ const PlaceOrder = () => {
     }
 
     try {
-      await fetch(`${url}/api/order/create`, {
+      const response = await fetch(`${url}/api/order/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json", token },
         body: JSON.stringify({
@@ -50,14 +50,20 @@ const PlaceOrder = () => {
         }),
       });
 
-      // Save amount for ThankYou
-      const finalAmount = getTotalCartAmount();
-      localStorage.setItem("finalAmount", finalAmount);
+      const result = await response.json();
+      
+      if (result.success) {
+        // Save amount for ThankYou
+        const finalAmount = getTotalCartAmount();
+        localStorage.setItem("finalAmount", finalAmount);
 
-      // ✅ Clear cart state + server (prevents repopulation on next fetch)
-      await clearCart({ syncServer: true });
+        // Clear cart after successful order
+        await clearCart();
 
-      navigate("/thank-you");
+        navigate("/thank-you");
+      } else {
+        alert(result.message || "Order failed! Please try again.");
+      }
     } catch (error) {
       console.log(error);
       alert("Order failed! Please try again.");

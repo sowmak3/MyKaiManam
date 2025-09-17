@@ -1,14 +1,17 @@
-import React, { useContext } from 'react';
-import './Cart.css';
-import { StoreContext } from '../../context/StoreContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import "./Cart.css";
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, food_list, addToCart, removeFromCart, getTotalCartAmount } =
+    useContext(StoreContext);
   const navigate = useNavigate();
 
+  const rows = food_list.filter((p) => Number(cartItems[p._id || p.id] || 0) > 0);
+
   return (
-    <div className='cart'>
+    <div className="cart">
       <div className="cart-main">
         <div className="cart-items">
           <div className="cart-items-title">
@@ -19,22 +22,33 @@ const Cart = () => {
             <p>Total</p>
             <p>Remove</p>
           </div>
-          
-          {food_list.map((item) => {
-            if (cartItems[item._id] > 0) {
-              return (
-                <div key={item._id} className='cart-items-item'>
-                  {/* ✅ Use item.image directly as full URL */}
-                  <img src={item.image} alt={item.name} />
-                  <p>{item.name}</p>
-                  <p>₹{item.price}</p>
-                  <p>{cartItems[item._id]}</p>
-                  <p>₹{item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeFromCart(item._id)} className='cross'>x</p>
+
+          {rows.map((item) => {
+            const key = String(item._id || item.id);
+            const qty = Number(cartItems[key] || 0);
+
+            return (
+              <div key={key} className="cart-items-item">
+                <img src={item.image} alt={item.name} />
+                <p>{item.name}</p>
+                <p>₹{item.price}</p>
+
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <button className="qty-btn" onClick={() => removeFromCart(key)}>
+                    −
+                  </button>
+                  <p>{qty}</p>
+                  <button className="qty-btn" onClick={() => addToCart(key)}>
+                    +
+                  </button>
                 </div>
-              );
-            }
-            return null;
+
+                <p>₹{item.price * qty}</p>
+                <p className="cross" onClick={() => removeFromCart(key)}>
+                  x
+                </p>
+              </div>
+            );
           })}
         </div>
 
@@ -45,8 +59,10 @@ const Cart = () => {
               <b>Total</b>
               <b>₹{getTotalCartAmount()}</b>
             </div>
-            <p className="delivery-note">🚚 Delivery charges will be paid directly to the delivery partner upon delivery.</p>
-            <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
+            <p className="delivery-note">
+              🚚 Delivery charges will be paid directly to the delivery partner upon delivery.
+            </p>
+            <button onClick={() => navigate("/order")}>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>

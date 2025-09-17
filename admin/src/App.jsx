@@ -7,7 +7,7 @@ import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 
 const App = () => {
-  const url = import.meta.env.VITE_SERVER_URL; // ✅ get from env
+  const url = import.meta.env.VITE_SERVER_URL;
 
   return (
     <div>

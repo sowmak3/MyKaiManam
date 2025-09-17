@@ -1,35 +1,47 @@
 import userModel from "../models/userModel.js";
 
-// Helper to resolve user id (prefer auth middleware)
+// Prefer auth middleware; fallback to body (legacy)
 const getUserId = (req) => req.user?.id || req.user?._id || req.body.userId;
 
-// ADD item to cart
+// Normalize Map/Object to a plain object for JSON
+const toPlain = (cart) => {
+  if (!cart) return {};
+  if (cart instanceof Map) return Object.fromEntries(cart.entries());
+  // Mongoose doc can behave like POJO; spreading is ok
+  return { ...cart };
+};
+
+// ---------- ADD (atomic increment) ----------
 export const addToCart = async (req, res) => {
   try {
     const userId = getUserId(req);
     const itemId = String(req.body.itemId || "").trim();
-    const qty = Number(req.body.qty || 1);
+    const qty = Math.max(1, Number(req.body.qty || 1));
 
     if (!userId) return res.json({ success: false, message: "Unauthorized" });
     if (!itemId) return res.json({ success: false, message: "itemId required" });
 
-    const user = await userModel.findById(userId);
-    if (!user) return res.json({ success: false, message: "User not found" });
+    // Atomic increment; creates key if not present
+    const updated = await userModel
+      .findOneAndUpdate(
+        { _id: userId },
+        { $inc: { [`cartData.${itemId}`]: qty } },
+        { new: true, projection: { cartData: 1 } }
+      )
+      .lean();
 
-    const cartData = user.cartData || {};
-    cartData[itemId] = (cartData[itemId] || 0) + (qty > 0 ? qty : 1);
-
-    user.cartData = cartData;
-    await user.save();
-
-    return res.json({ success: true, message: "Added to Cart", cartData });
+    return res.json({
+      success: true,
+      message: "Added to Cart",
+      cartData: toPlain(updated?.cartData),
+    });
   } catch (error) {
     console.log("Add to cart error:", error);
     return res.json({ success: false, message: "Error in add to cart" });
   }
 };
 
-// REMOVE one unit of an item from cart
+// ---------- REMOVE (atomic: decrement or unset) ----------
 export const removeFromCart = async (req, res) => {
   try {
     const userId = getUserId(req);
@@ -38,57 +50,58 @@ export const removeFromCart = async (req, res) => {
     if (!userId) return res.json({ success: false, message: "Unauthorized" });
     if (!itemId) return res.json({ success: false, message: "itemId required" });
 
-    const user = await userModel.findById(userId);
-    if (!user) return res.json({ success: false, message: "User not found" });
+    // Decrement 1
+    await userModel.updateOne(
+      { _id: userId },
+      { $inc: { [`cartData.${itemId}`]: -1 } }
+    );
 
-    const cartData = user.cartData || {};
-    if (cartData[itemId] > 1) {
-      cartData[itemId] -= 1;
-    } else {
-      // if 0 or undefined, ensure the key is removed
-      delete cartData[itemId];
+    // If <= 0, remove the key
+    const doc = await userModel.findById(userId).select("cartData").lean();
+    const qty = Number((doc?.cartData ?? {})[itemId] ?? 0);
+    if (qty <= 0) {
+      await userModel.updateOne(
+        { _id: userId },
+        { $unset: { [`cartData.${itemId}`]: "" } }
+      );
     }
 
-    user.cartData = cartData;
-    await user.save();
-
-    return res.json({ success: true, message: "Removed from Cart", cartData });
+    const updated = await userModel.findById(userId).select("cartData").lean();
+    return res.json({
+      success: true,
+      message: "Removed from Cart",
+      cartData: toPlain(updated?.cartData),
+    });
   } catch (error) {
     console.log("Remove from cart error:", error);
     return res.json({ success: false, message: "Error removing from cart" });
   }
 };
 
-// GET cart
+// ---------- GET ----------
 export const getCart = async (req, res) => {
   try {
     const userId = getUserId(req);
     if (!userId) return res.json({ success: false, message: "Unauthorized" });
 
-    const user = await userModel.findById(userId);
-    if (!user) return res.json({ success: false, message: "User not found" });
-
-    const cartData = user.cartData || {};
-    return res.json({ success: true, cartData });
+    const user = await userModel.findById(userId).select("cartData").lean();
+    return res.json({ success: true, cartData: toPlain(user?.cartData) });
   } catch (error) {
     console.log("Get cart error:", error);
     return res.json({ success: false, message: "Error fetching cart" });
   }
 };
 
-// CLEAR cart (used after successful order)
+// ---------- CLEAR ----------
 export const clearCart = async (req, res) => {
   try {
     const userId = getUserId(req);
     if (!userId) return res.json({ success: false, message: "Unauthorized" });
 
-    const user = await userModel.findById(userId);
-    if (!user) return res.json({ success: false, message: "User not found" });
+    await userModel.updateOne({ _id: userId }, { $set: { cartData: {} } });
+    const user = await userModel.findById(userId).select("cartData").lean();
 
-    user.cartData = {}; // if your schema uses an array, change to []
-    await user.save();
-
-    return res.json({ success: true, cartData: user.cartData });
+    return res.json({ success: true, cartData: toPlain(user?.cartData) });
   } catch (error) {
     console.log("Clear cart error:", error);
     return res.json({ success: false, message: "Failed to clear cart" });

@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import FoodItem from '../../components/FoodItem/FoodItem';
 
 const Products = () => {
-  const { food_list } = useContext(StoreContext);
+  const { food_list, cartItems, getTotalCartItems } = useContext(StoreContext);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = ['All', 'Podis', 'Mixes', 'Pickles'];

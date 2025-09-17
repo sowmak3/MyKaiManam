@@ -43,6 +43,7 @@
   font-size: 14px;
 }
 
+
 @media (max-width: 1000px) {
   .order-item {
     font-size: 12px;

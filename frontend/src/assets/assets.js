@@ -95,9 +95,9 @@ export const menu_list = [
 
 export const food_list = [
   // PODIS
-  { _id: "1", name: "Verkadalai Podi", image: food1, price: 430, category: "Podis" },
+  { _id: "1", name: "Verkadalai Podi", image: food1, price: 430, category: "Podis", bestSeller: true },
   { _id: "2", name: "Rasam Podi", image: food2, price: 465, category: "Podis" },
-  { _id: "3", name: "Paruppu Podi", image: food3, price: 370, category: "Podis" },
+  { _id: "3", name: "Paruppu Podi", image: food3, price: 370, category: "Podis", bestSeller: true },
   { _id: "4", name: "Bisibelebath Podi", image: food4, price: 435, category: "Podis" },
   { _id: "5", name: "Poondu Podi", image: food5, price: 650, category: "Podis" },
   { _id: "6", name: "Vathakuzhambu Premix Podi", image: food6, price: 470, category: "Podis" },
@@ -107,14 +107,14 @@ export const food_list = [
 
 
   // MIXES
-  { _id: "10", name: "Tomato Thokku", image: food10, price: 400, category: "Mixes" },
+  { _id: "10", name: "Tomato Thokku", image: food10, price: 400, category: "Mixes", bestSeller: true },
   { _id: "11", name: "Kothamalli Thokku", image: food11, price: 370, category: "Mixes" },
   { _id: "12", name: "Mango Thokku", image: food12_temp, price: 370, category: "Mixes"  },
   { _id: "13", name: "Small Onion Thokku", image: food13_temp, price: 370, category: "Mixes"},
-  { _id: "14", name: "Pulikachal", image: food14, price: 450, category: "Mixes" },
+  { _id: "14", name: "Pulikachal", image: food14, price: 450, category: "Mixes", bestSeller: true },
 
   // PICKLES
-  { _id: "15", name: "Organic lemon pickle", image: food15, price: 425, category: "Pickles" },
+  { _id: "15", name: "Organic lemon pickle", image: food15, price: 425, category: "Pickles", bestSeller: true },
   { _id: "16", name: "Amla Pickle", image: food16, price: 400, category: "Pickles" },
   { _id: "17", name: "Avakkai Pickle", image: food17, price: 450, category: "Pickles" }
 ];

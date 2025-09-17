@@ -121,6 +121,8 @@
   right: 15px;
   cursor: pointer;
   border-radius: 50%;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Responsive add button sizing */
@@ -154,6 +156,9 @@
 
 .food-item-counter img {
   width: 35px;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Responsive counter sizing */
